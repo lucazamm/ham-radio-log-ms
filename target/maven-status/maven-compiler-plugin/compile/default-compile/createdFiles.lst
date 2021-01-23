@@ -1,0 +1,6 @@
+net/zammarchi/hamradiolog/db/entity/HamLog.class
+net/zammarchi/hamradiolog/SwaggerConfig.class
+net/zammarchi/hamradiolog/HamRadioLogApplication.class
+net/zammarchi/hamradiolog/api/Response.class
+net/zammarchi/hamradiolog/db/repository/HamLogRepository.class
+net/zammarchi/hamradiolog/controllers/HamLogController.class

@@ -1,0 +1,5 @@
+FROM openjdk:8-jre-slim
+COPY target/*.jar app.jar
+ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+EXPOSE 8081

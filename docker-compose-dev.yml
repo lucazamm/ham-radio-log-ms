@@ -1,0 +1,17 @@
+version: '3.6'
+
+services:
+  backend:
+    container_name: winder-collaboration-ms
+    image: 680311761019.dkr.ecr.eu-central-1.amazonaws.com/winder-collaboration-ms:develop
+    networks:
+      - network-backend
+    ports:
+      - 8001:8081
+      #-Dspring.profiles.active=jenkins
+    command: ["java", "-jar", "/app.jar","--spring.config.location=file:///application.properties"]
+    volumes:
+      - ./application.properties:/application.properties
+networks:
+  network-backend:
+    driver: bridge

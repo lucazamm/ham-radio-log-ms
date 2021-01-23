@@ -1,0 +1,46 @@
+version: '3.6'
+
+services:
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile.build
+    networks:
+      - network-backend
+    ports:
+      - 8081:8081
+    #volumes:
+      #- ./conf.d:/app/conf.d
+      #- ./target:/app
+      #- ./conf.d:/config
+    #environment:
+      #- DATABASE_HOST=difacile-config-mongo
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      - network-backend
+    #environment:
+      #MONGO_INITDB_ROOT_USERNAME: root
+      #MONGO_INITDB_ROOT_PASSWORD: root
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/ham-radio-log-local --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 12
+  mongo-express:
+    image: mongo-express
+    networks:
+      - network-backend
+    restart: always
+    ports:
+      - 8201:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      #ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      #ME_CONFIG_MONGODB_ADMINPASSWORD: root
+    links:
+      - mongo
+networks:
+  network-backend:
+    driver: bridge
